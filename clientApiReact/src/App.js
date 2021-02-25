@@ -27,13 +27,14 @@ const App = () => {
   };
 
   useEffect(() => {
-    getDataFromAPi();
+    if (isAuthenticated){
+     getDataFromAPi();
+    }
     // alert("Data fetched succefully...!")
-  }, [limit,setIsAuthenticated]);
+  }, [limit,isAuthenticated]);
 
   // function will be called when google authenticated the user
   const responseGoogleS = (response) => {
-    getDataFromAPi();
     setIsAuthenticated(true);
   };
   // function will be called when google unauthorized  the user
@@ -50,7 +51,7 @@ const App = () => {
             <FoodMaterialTable data={data} setData={setData} />
           </div>
         ) : (
-          <GoogleAuth responseGoogleS={responseGoogleS} responseGoogleF={responseGoogleF}  />
+          <GoogleAuth handleSuccess={responseGoogleS} handleFailure={responseGoogleF}  />
         )}
       </div>
     </div>
